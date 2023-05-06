@@ -4,11 +4,11 @@ import csv from 'csv-parser';
 import { createObjectCsvWriter } from 'csv-writer';
 import { getOpenAiEmbedding } from './shared';
 
-const search_term = "scoliosis physical therapist, schroth method";
+const search_term = "scoliosis physical therapist, schroth method in california, san francisco, los angeles, sacramento, bay area";
 
 // Read the input CSV file
 const inputFilePath = './scoliosis2.csv';
-const outputFilePath = './scoliosis2_sorted.csv';
+const outputFilePath = './scoliosis2_sorted1.csv';
 
 // Use the same output headers as before
 const outputHeaders = ['First name', 'Last name', 'Email', 'Phone number', 'Title', 'Company', 'Location', 'Linkedin url', 'Last action', 'Time of last action', 'Company website', 'Linkedin public url', 'Title & Company', 'Embedding'];
@@ -32,8 +32,7 @@ async function main() {
         // Calculate the similarity between the search term and the row embedding
         row.similarity = cosineSimilarity(searchTermEmbedding, row.Embedding);
 
-        // copy the row but leave out the embedding, email and phone number
-        results.push({...row, Embedding: undefined, Email: undefined, 'Phone number': undefined})
+        results.push({...row})
       })
       .on('end', () => {
         resolve(results);

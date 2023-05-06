@@ -8,7 +8,7 @@ require("dotenv").config();
 const configuration = new Configuration({
     apiKey: process.env["openai_key"],
   });
-  const openai = new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration);
 
 // Generate the OpenAI embedding for a text string
 export async function getOpenAiEmbedding(text: string): Promise<number[]> {

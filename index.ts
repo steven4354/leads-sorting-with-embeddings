@@ -42,13 +42,11 @@ const inputStream = fs
 // Create an object CSV writer for the output CSV file
 const csvWriter = createObjectCsvWriter({
   path: outputFilePath,
-  header: outputHeaders.map(header => ({ id: header, title: header })),
+  header: outputHeaders.map((header) => ({ id: header, title: header })),
 });
 
 // Initialize an array to store the output rows
-const outputRows = [];
-
-
+const outputRows: any = [];
 
 // Initialize a counter to keep track of the processed rows
 let processedRows = 0;
@@ -59,7 +57,7 @@ inputStream.on("data", async (row) => {
   totalRows++;
 
   // Combine the Title and Company columns
-  const titleAndCompany = `${row.Title} at ${row.Company}`;
+  const titleAndCompany = `${row.Title} at ${row.Company} in ${row.Location}`;
 
   // Generate the OpenAI embedding for the combined Title and Company
   const embedding = await getOpenAiEmbedding(titleAndCompany);
@@ -94,4 +92,3 @@ customEmitter.on("rowProcessed", async () => {
     console.log("CSV file processing complete.");
   }
 });
-
